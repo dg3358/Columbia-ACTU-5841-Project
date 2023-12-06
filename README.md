@@ -11,3 +11,13 @@ Here is an example of some of the features to get an idea of what they are. Firs
 We choose to make our project on bankruptcy because we believe that bankruptcy in a business is a significant risk not only to the individual enterprise that is going under, but also to the broader global economy. Our approach focuses on a comprehensive analysis of various Key Performance indicators that are indicative of a company’s financial health to predict if the company has the possibility of going bankrupt. When this problem goes unaddressed, these indicators can lead to a company’s downfall and have major consequences in many people’s lives.
 
 The core objective with this project is to develop a robust predictive model capable of accurately forecasting the likelihood of a company facing bankruptcy. This tool will be instrumental in enabling businesses to make informed and timely decisions, potentially averting financial crisis and contributing to overall economic stability.
+
+## Our Dataset and Our Problem
+
+## Data Preprocessing - Feature Relationships and Feature Selection
+
+## Data Preprocessing - PCA and Imbalance Sampling
+
+## Methods we Implemented - Descriptions and Performance
+
+## Final Analysis - Conisderations for further study
