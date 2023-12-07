@@ -1,5 +1,7 @@
 # Columbia-ACTU-5841-Project
 Final Group Project for ACTU 5841 - Data Science in Finance And Insurance
+By: Dennis Goldenberg, Anh Vu Lieu, Tianyi Xu, Esteban Gutierrez, Samuel Ma
+
 ## Our Dataset:
 
 For the final project for data science for finance and insurance we decided to work on a dataset to predict bankruptcy in companies based on different financial ratios that describe the financial health of a company. The definition of bankruptcy was the one provided by the Taiwan Stock Exchange, we obtained the dataset from Kaggle, the publisher of the original dataset is the National Central University of Taiwan.
@@ -12,8 +14,6 @@ We choose to make our project on bankruptcy because we believe that bankruptcy i
 
 The core objective with this project is to develop a robust predictive model capable of accurately forecasting the likelihood of a company facing bankruptcy. This tool will be instrumental in enabling businesses to make informed and timely decisions, potentially averting financial crisis and contributing to overall economic stability.
 
-## Our Dataset and Our Problem
-
 ## Data Preprocessing - Feature Relationships and Feature Selection
 
 ## Data Preprocessing - PCA and Imbalance Sampling
@@ -21,3 +21,6 @@ The core objective with this project is to develop a robust predictive model cap
 ## Methods we Implemented - Descriptions and Performance
 
 ## Final Analysis - Conisderations for further study
+Many of our models had high accuracy in bankruptcy prediction. However, as previously mentioned, our dataset was incredibly imbalanced; 96.77% of companies were not bankrupt, so a naive classifier that just picked 0 every single time would be able to achieve about 95% accuracy. Therefore, a more notable result is the True Positive rate, or the probability of predicting bankruptcy given that a company’s true outcome is 1, or bankrupt. This is for 2 reasons; first, a false negative, or failing to predict bankruptcy, is more dangerous financially than a false positive. Second, a high true positive rate indicates that the model is not overfit to all of the 0s in our dataset. From this perspective, the models with the highest True Positive rate were Linear Discriminant Analysis, and logistic regression. Linear Discriminant Analysis likely worked well due to the separability emphasized by our minority oversampling method and the interpolation between existing data points for bankrupt companies it introduced. Logistic Regression likely worked well due to the regularization on the coefficients disallowing overfitting on the mostly non-bankrupt dataset.
+
+Our models likely could have been improved by a more sophisticated minority oversampling method. We simply balanced out the dataset by oversampling from the minority The article from which we derived the idea recommended not just oversampling the minority class but also undersampling the majority class; that way, the extra variance from all of the new data points is limited. Each model was also only trained on a subset of our features, and the subset was chosen by the magnitude of the correlation coefficient, which only measures linear relationships; this assumes a linear relationship between the financial ratios and bankruptcy, which may not be uniformly the case across all of our features; a better heuristic on feature selection may be necessary. Finally, though beyond the scope of this particular class, the utilization of deep learning - such as Neural Networks and Convolutional Neural Networks - with its many parameters could have helped deal with the large number of features relative to our simple binary classification task. Further Consideration and study should be completed along all 3 avenues - minority oversampling, feature selection intuition and deep learning implementation.
