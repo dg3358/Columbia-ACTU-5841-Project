@@ -1,5 +1,6 @@
 # Columbia-ACTU-5841-Project
 Final Group Project for ACTU 5841 - Data Science in Finance And Insurance
+
 By: Dennis Goldenberg, Anh Vu Lieu, Tianyi Xu, Esteban Gutierrez, Samuel Ma
 
 ## Our Dataset:
@@ -13,15 +14,27 @@ We choose to make our project on bankruptcy because we believe that bankruptcy i
 
 The core objective with this project is to develop a robust predictive model capable of accurately forecasting the likelihood of a company facing bankruptcy. This tool will be instrumental in enabling businesses to make informed and timely decisions, potentially averting financial crisis and contributing to overall economic stability.
 
+
 ## Data Preprocessing - Feature Relationships and Feature Selection
-In the realm of financial analysis, preprocessing data is a crucial step in unveiling meaningful insights and building robust predictive models. The dataset contains information on 6819 companies and their 96 attributes including one that indicating bankruptcy and 95 financial features. After we read the data file into DataFrame “bdata”, we dropped the variable named “ Net Income Flag” due to its zero variance, all companies in our dataset have a negative net income for the last two years, suggesting it contributes negligible information to the analysis. Subsequently, we computed a correlation matrix, laying bare the interrelationships between different financial variables. This matrix is then visualized as a heatmap, leveraging Matplotlib, providing an intuitive representation of variable correlations.
+In the realm of financial analysis, preprocessing data is a crucial step in unveiling meaningful insights and building robust predictive models. The dataset contains information on 6819 companies and their 96 attributes including one that indicating bankruptcy and 95 financial features. After we read the data file into DataFrame “bdata”, we dropped the variable named “ Net Income Flag” due to its zero variance, as all companies in our dataset have a negative net income for the last two years. Subsequently, we computed a correlation matrix, laying bare the interrelationships between different financial variables. This matrix is then visualized as a heatmap, leveraging Matplotlib, providing an intuitive representation of variable correlations.
 
 The correlation matrix heatmap shows most financial features have little correlation with the target variable “Bankrupt?”. Aiming to filter our pertinent features, our group defined the threshold to be ± 0.1 and identified variables with correlation to bankruptcy larger than 0.1 and smaller than -0.1. There are 32 variables considered relevant based on the threshold, and we then created a list of these variables, denoted as “important_variables”. Additionally, the dataset is partitioned into feature variables (X) and the target variable (y), setting the stage for subsequent modeling endeavors.
 
-Upon scrutinizing the correlation matrix heatmap, we realized multiple selected features exhibit high intercorrelation. For example, features such as "Net Income to Total Assets," "ROA(A) before interest and % after tax," "ROA(B) before interest and depreciation after tax," and "ROA(C) before interest and depreciation before interest" displayed a discernible red hue, indicative of their strong correlation. This observation underscores an opportunity for further dimensionality reduction in our dataset, and we decided to pursue additional preprocessing methods. 
+Upon scrutinizing the correlation matrix heatmap, we realized multiple selected features exhibit high intercorrelation. For example, features such as "Net Income to Total Assets," "ROA(A) before interest and % after tax," "ROA(B) before interest and depreciation after tax," and "ROA(C) before interest and depreciation before interest" displayed a discernible red hue, indicative of their strong correlation. This observation underscores an opportunity for further dimensionality reduction in our dataset, and we decided to pursue additional preprocessing methods.
 
 
 ## Data Preprocessing - PCA and Imbalance Sampling
+### Principal Component Analysis
+PCA simplifies the data set by reducing dimensionality while retaining the variation information in the original data set as much as possible. Given that our original dataset had 95 features and the features selected through the correlation matrix still had 32, PCA is useful.
+
+PCA first accounts for correlation by creating perpendicular components, then it reduces dimensionality by taking components accounting for most variance. We use PCA on the original dataset (containing 95 features) and the dataset after feature selection (containing 32 features). The result shows that selection of important features helps to reduce the dimensionality of the data, with just 12 components being able to explain 95% of the variance of the 32 highly correlated features compared to 52 components explaining 95% of the variance of all features prior to the selection. Therefore, we use the 12 principal components obtained in the graph on the right for the next modeling work.
+
+### Imbalanced Sampling
+In addition to having too many features, our dataset suffers from severe data imbalance. In our data set, 6599 companies do not go bankrupt, and only 220 companies go bankrupt. That is to say, nearly 97% of the values in our target variable (binary variable) are 0, and 3% are 1. This results in the model tending to predict 0 for most samples because doing so is statistically more likely to be correct. However, as our main goal is to identify companies that are likely to go bankrupt, such a tendency is dangerous.
+
+To solve this problem, we use the popular method in oversampling, SMOTE. The main purpose is to increase the weight of the minority class, thereby alleviating the problem of misprediction.
+
+SMOTE creates new samples by finding the K nearest neighbors of each minority class sample, and then interpolating between these neighbors. The feature value of the newly generated data will be between each minority class sample and its neighbor samples. In this way, we increase the number of “1” in the target variable to the same number as the number of “0”. Note that we applied this imbalanced sampling on only the training dataset, as 20% of the dataset was allocated towards testing our models.
 
 
 ## Methods we Implemented - Descriptions and Performance
