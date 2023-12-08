@@ -34,8 +34,7 @@ In addition to having too many features, our dataset suffers from severe data im
 
 To solve this problem, we use the popular method in oversampling, SMOTE. The main purpose is to increase the weight of the minority class, thereby alleviating the problem of misprediction.
 
-SMOTE creates new samples by finding the K nearest neighbors of each minority class sample, and then interpolating between these neighbors. The feature value of the newly generated data will be between each minority class sample and its neighbor samples. In this way, we increase the number of “1” in the target variable to the same number as the number of “0”. Note that we applied this imbalanced sampling on only the training dataset, as 20% of the dataset was allocated towards testing our models.
-
+SMOTE creates new samples by finding the K nearest neighbors of each minority class sample, and then interpolating between these neighbors. The feature value of the newly generated data will be between each minority class sample and its neighbor samples. In this way, we increase the number of “1” in the target variable to the same number as the number of “0”. Note that we applied this imbalanced sampling on only the training dataset, as 20% of the dataset was allocated towards testing our models. This feature selected, pre-processed, and balanced data is finally ready for us to implement our selected statistical machine learning models. 
 
 ## Methods we Implemented - Descriptions and Performance
 ### K-Nearest Neighbors
